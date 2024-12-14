@@ -3,16 +3,40 @@
 	"sequence": [
         [
     		{
-    			"effectName": "camera",
+    			"effectName": "mediaLoader",
     			"compositeMode": "replace",
     			"effectVariables": {
-    				"Preserve Aspect Ratio": true
+    				"Preserve Aspect Ratio": true,
+    				"Media Location": "projects/testProject/media/coconut.png"
+                }
+            }, {
+    			"effectName": "mediaLoader",
+    			"compositeMode": "behind",
+    			"effectVariables": {
+    				"Preserve Aspect Ratio": true,
+    				"Media Location": "projects/testProject/media/background.gif"
+                }
+            }
+        ], [
+    		{
+    			"effectName": "mediaLoader",
+    			"compositeMode": "replace",
+    			"effectVariables": {
+    				"Preserve Aspect Ratio": true,
+    				"Media Location": "projects/testProject/media/coconut.png"
                 }
             }, {
                 "effectName": "blur",
-                "compositeMode": "replace",
+                "compositeMode": "behind",
                 "effectVariables": {
-                    "Amount": 10
+                    "Amount": 20
+                }
+            }, {
+    			"effectName": "mediaLoader",
+    			"compositeMode": "behind",
+    			"effectVariables": {
+    				"Preserve Aspect Ratio": true,
+    				"Media Location": "projects/testProject/media/background.gif"
                 }
             }
         ]

@@ -1,0 +1,20 @@
+{
+	"name": "testProject",
+	"sequence": [
+        [
+    		{
+    			"effectName": "camera",
+    			"compositeMode": "replace",
+    			"effectVariables": {
+    				"Preserve Aspect Ratio": true
+                }
+            }, {
+                "effectName": "blur",
+                "compositeMode": "replace",
+                "effectVariables": {
+                    "Amount": 10
+                }
+            }
+        ]
+    ]
+}

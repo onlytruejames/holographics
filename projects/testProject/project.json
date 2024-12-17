@@ -10,6 +10,26 @@
     				"Preserve Aspect Ratio": true,
     				"Media Location": "projects/testProject/media/background.gif"
                 }
+            }, {
+    			"effectName": "difference",
+    			"compositeMode": "replace",
+    			"effectVariables": {
+    				"Mode": "Store",
+    				"Id": "d;lfjadskljgnadskjlg,ndszfkadsnmf,"
+                }
+            }, {
+                "effectName": "blur",
+                "compositeMode": "replace",
+                "effectVariables": {
+                    "Amount": 10
+                }
+            }, {
+    			"effectName": "difference",
+    			"compositeMode": "replace",
+    			"effectVariables": {
+    				"Mode": "Compare",
+    				"Id": "d;lfjadskljgnadskjlg,ndszfkadsnmf,"
+                }
             }
         ]
     ]

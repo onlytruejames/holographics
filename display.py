@@ -23,6 +23,7 @@ except:
     scale = 1
 
 window = tk.Tk() # Create Tk object
+window.configure(bg='black')
 
 def refresh():
     # Whenever you update the window, do this to make the window reflect these changes
@@ -69,7 +70,7 @@ def getFrame():
             case "replace":
                 image = newImage
     black = blackImage.copy()
-    black.paste(image)
+    black.alpha_composite(image)
     return black
 
 global running

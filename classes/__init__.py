@@ -61,7 +61,8 @@ class Effect:
         # Send a message if possible, but if the method is written badly, just print the id and data of the message.
         try:
             self.module.message(id, data)
-        except:
+        except Exception as e:
+            print(e)
             print(f"Message ID: {id}, Message Payload: {data}")
     
     @property

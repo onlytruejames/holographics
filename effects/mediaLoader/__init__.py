@@ -21,21 +21,8 @@ class Module:
     def requestFrame(self, image):
         # The image parameter is not used
         # If the media is animated, send it to the next frame and process this
-        image = self.frames[self.index] # Fetch appropriate frame
-        self.index += 1 # Increment index by 1
-        self.index = self.index % len(self.frames) # Ensure that the index is not greater than the number of frames
-        preservesAR = self.variables["Preserve Aspect Ratio"].value # Is the aspect ratio being preserved?
-        if not preservesAR:
-            image = image.resize(self.dimensions)
-        else:
-            image = image.resize(self.resizeDims)
-            # Assuming that the method for pasting an image on top of another image 
-            # (place(lower, upper, coordinate)) places the top left corner of the upper
-            # image at the specified coordinate on the lower image
-            blank = self.blankImage.copy()
-            blank.paste(image, self.resizeCoordinate)
-            image = blank
-        return image
+        self.frames.append(self.frames.pop(0))
+        return self.frames[-1]
     
     def message(self, id, data):
         match id: # Decide what to do with the message based on its identifier
@@ -63,11 +50,28 @@ class Module:
                 ) # Halfway between (0, 0) and the difference between the dimensions 
                 # results in a centred placement. Also rounded to be an integer.
                 self.resizeCoordinate = coordinate
+                self.loadFrames()
             case "variableUpdate":
             	if data == "Media Location":
-                    image = Image.open(self.variables[data].value)
-                    #image = image.convert("RGBA") # Ensure correct image type
-                    self.imageWidth = image.width
-                    self.imageHeight = image.height # Update values of dimensions
-                    self.frames = ImageSequence.all_frames(image, lambda x:x) # Get list of frames
-                    self.index = 0 # Reset frame index
+                    self.loadFrames()
+    
+    def frameProcess(self, image):
+        image = image.convert("RGBA")
+        preservesAR = self.variables["Preserve Aspect Ratio"].value # Is the aspect ratio being preserved?
+        if not preservesAR:
+            return image.resize(self.dimensions)
+        else:
+            image = image.resize(self.resizeDims)
+            # Assuming that the method for pasting an image on top of another image 
+            # (place(lower, upper, coordinate)) places the top left corner of the upper
+            # image at the specified coordinate on the lower image
+            blank = self.blankImage.copy()
+            blank.paste(image, self.resizeCoordinate)
+            return blank
+    
+    def loadFrames(self):
+        image = Image.open(self.variables["Media Location"].value)
+        self.imageWidth = image.width
+        self.imageHeight = image.height # Update values of dimensions
+        self.frames = ImageSequence.all_frames(image, self.frameProcess) # Get list of frames
+        self.index = 0 # Reset frame index

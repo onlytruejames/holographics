@@ -16,6 +16,11 @@ global slideIndex
 slideIndex = -1
 global currentSlide
 currentSlide = None
+global scale
+try:
+    scale = project["scale"]
+except:
+    scale = 1
 
 window = tk.Tk() # Create Tk object
 
@@ -37,7 +42,7 @@ def updateWindow(image):
 
 def getWindowSize():
     # https://stackoverflow.com/a/4221002/
-    return (window.winfo_screenwidth(), window.winfo_screenheight())
+    return (window.winfo_screenwidth() // scale, window.winfo_screenheight() // scale)
 
 windowSize = getWindowSize()
 
@@ -97,6 +102,7 @@ window.bind("<Right>", lambda x: nextSlide()) # When you press the right arrow k
 while running:
     try:
         frame = getFrame() # Get the frame
+        frame = frame.resize((windowSize[0] * scale, windowSize[1] * scale))
         updateWindow(frame) # Put the frame in the window
         refresh() # Remind the window that it's not rendering the frame
     except Exception as e:

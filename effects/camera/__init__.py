@@ -26,13 +26,14 @@ class Module:
         # There will likely be a conversion to get this image into the PIL format
         preservesAR = self.variables["Preserve Aspect Ratio"].value # Is the aspect ratio being preserved?
         if not preservesAR:
-            cameraPicture = cameraPicture.resize(self.dims)
+            cameraPicture = cameraPicture.resize(self.dimensions)
+            return cameraPicture
         else:
             cameraPicture = cameraPicture.resize(self.resizeDims)
-        # Paste onto blank image at the correct coordinates to centre the camera photo
-        blank = self.blankImage.copy()
-        blank.paste(cameraPicture, self.resizeCoordinate)
-        return blank
+            # Paste onto blank image at the correct coordinates to centre the camera photo
+            blank = self.blankImage.copy()
+            blank.paste(cameraPicture, self.resizeCoordinate)
+            return blank
     def message(self, id, data):
         match id: # Decide what to do with the message based on its identifier
             case "dimensions":

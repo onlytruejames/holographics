@@ -1,39 +1,11 @@
 {
 	"name": "testProject",
+    "scale": 1,
 	"sequence": [
         [
     		{
     			"effectName": "mediaLoader",
     			"compositeMode": "replace",
-    			"effectVariables": {
-    				"Preserve Aspect Ratio": true,
-    				"Media Location": "projects/testProject/media/coconut.png"
-                }
-            }, {
-    			"effectName": "mediaLoader",
-    			"compositeMode": "behind",
-    			"effectVariables": {
-    				"Preserve Aspect Ratio": true,
-    				"Media Location": "projects/testProject/media/background.gif"
-                }
-            }
-        ], [
-    		{
-    			"effectName": "mediaLoader",
-    			"compositeMode": "replace",
-    			"effectVariables": {
-    				"Preserve Aspect Ratio": true,
-    				"Media Location": "projects/testProject/media/coconut.png"
-                }
-            }, {
-                "effectName": "blur",
-                "compositeMode": "behind",
-                "effectVariables": {
-                    "Amount": 20
-                }
-            }, {
-    			"effectName": "mediaLoader",
-    			"compositeMode": "behind",
     			"effectVariables": {
     				"Preserve Aspect Ratio": true,
     				"Media Location": "projects/testProject/media/background.gif"

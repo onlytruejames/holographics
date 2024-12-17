@@ -1,35 +1,21 @@
 {
 	"name": "testProject",
-    "scale": 1,
+    "scale": 2,
 	"sequence": [
         [
     		{
-    			"effectName": "mediaLoader",
+    			"effectName": "camera",
     			"compositeMode": "replace",
     			"effectVariables": {
-    				"Preserve Aspect Ratio": true,
-    				"Media Location": "projects/testProject/media/background.gif"
+    				"Preserve Aspect Ratio": true
                 }
             }, {
-    			"effectName": "difference",
+    			"effectName": "expandingColours",
     			"compositeMode": "replace",
-    			"effectVariables": {
-    				"Mode": "Store",
-    				"Id": "d;lfjadskljgnadskjlg,ndszfkadsnmf,"
-                }
-            }, {
-                "effectName": "blur",
-                "compositeMode": "replace",
-                "effectVariables": {
-                    "Amount": 10
-                }
-            }, {
-    			"effectName": "difference",
-    			"compositeMode": "replace",
-    			"effectVariables": {
-    				"Mode": "Compare",
-    				"Id": "d;lfjadskljgnadskjlg,ndszfkadsnmf,"
-                }
+				"effectVariables": {
+					"Radius": 2,
+					"Decay": 0.01
+				}
             }
         ]
     ]

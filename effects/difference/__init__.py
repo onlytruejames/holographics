@@ -42,4 +42,7 @@ class Module:
         return newImage
     
     def message(self, id, data):
-        pass
+        match id:
+            case "dimensions":
+                for key in directory:
+                    directory[key] = directory[key].resize(data)

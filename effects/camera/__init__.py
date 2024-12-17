@@ -34,6 +34,7 @@ class Module:
             blank = self.blankImage.copy()
             blank.paste(cameraPicture, self.resizeCoordinate)
             return blank
+        
     def message(self, id, data):
         match id: # Decide what to do with the message based on its identifier
             case "dimensions":

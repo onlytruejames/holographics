@@ -91,7 +91,7 @@ def nextSlide():
         for eff in currentSlide.effects:
             eff.message("dimensions", windowSize) # Message to inform effects of dimensions
     except Exception as e:
-        print(e)
+        print(f"Error caught in nextSlide: {e}")
         quit(1)
 
 nextSlide()
@@ -108,5 +108,5 @@ while running:
         refresh() # Remind the window that it's not rendering the frame
     except Exception as e:
         # An error occurred, print it for debugging purposes and quit safely
-        print(e)
+        print(f"Error caught in mainloop: {e}")
         quit(1)

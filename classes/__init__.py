@@ -10,7 +10,7 @@ def importModules():
             importedModule = import_module(f"effects.{dir}").Module # Import the module class from the effect module
             classes[dir] = importedModule # Assign this module to the dictionary of classes
         except Exception as e:
-            print(e)
+            print(f"Error caught in importModules: {e}")
             # Non-importable directory, do nothing
             pass
     return classes
@@ -62,7 +62,7 @@ class Effect:
         try:
             self.module.message(id, data)
         except Exception as e:
-            print(e)
+            print(f"Error caught in Effect.message: {e}")
             print(f"Message ID: {id}, Message Payload: {data}")
     
     @property
@@ -81,5 +81,5 @@ class Effect:
                 if not prevVariables[var] == value[var]:
                     self.message("variableUpdate", var)
         except Exception as e:
-            print(e)
+            print(f"Error caught in Effect.variables.setter: {e}")
             pass # Do nothing

@@ -25,6 +25,10 @@ class Slide:
     def load(self, effects):
         effectsList = [] # Empty list of effects to be assigned to this.effects
         for eff in effects:
+            if not "compositeMode" in eff:
+                eff["compositeMode"] = "replace"
+            if not "effectVariables" in eff:
+                eff["effectVariables"] = {}
             newEffect = Effect(eff["effectName"], eff["compositeMode"], eff["effectVariables"])
             # Create effect object of given type with correct composite mode and variables
             effectsList.append(newEffect) # Add to list of effects

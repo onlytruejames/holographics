@@ -92,7 +92,6 @@ def nextSlide():
             eff.message("dimensions", windowSize) # Message to inform effects of dimensions
     except Exception as e:
         print(f"Error caught in nextSlide: {e}")
-        quit(1)
 
 nextSlide()
 

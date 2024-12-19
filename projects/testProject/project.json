@@ -1,6 +1,6 @@
 {
 	"name": "testProject",
-    "scale": 2,
+    "scale": 3,
 	"sequence": [
         [
     		{
@@ -10,12 +10,8 @@
     				"Preserve Aspect Ratio": true
                 }
             }, {
-    			"effectName": "expandingColours",
-    			"compositeMode": "replace",
-				"effectVariables": {
-					"Radius": 2,
-					"Decay": 0.01
-				}
+    			"effectName": "santa",
+    			"compositeMode": "replace"
             }
         ]
     ]

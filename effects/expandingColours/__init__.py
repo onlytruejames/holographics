@@ -8,7 +8,7 @@ class Module:
         self.name = "expandingColours"
         self.description = "Dissolve effect which works by setting the value of a pixel to the brightest, nearest value in its surroundings from the current or previous frame."
         radius = EffectVariable("Radius", "int", 2, "Radius over which the dissolve effect operates for any pixel")
-        decay = EffectVariable("Decay", "float", 0.8, "Multiplier of pixel brightness of the previous frame")
+        decay = EffectVariable("Decay", "float", 0.2, "Amount the brightness of the previous image is reduced by")
         self.variables = {
             "Radius": radius,
             "Decay": decay
@@ -23,7 +23,7 @@ class Module:
             case "dimensions":
                 self.dimensions = data
                 prevImg = Image.fromarray(self.previousImage.astype(np.uint8))
-                self.previousImage = np.array(prevImg.resize(data)).astype(np.float32)
+                self.previousImage = np.array(prevImg.resize(data, Image.NEAREST)).astype(np.float32)
             case "variableUpdate":
                 if data == "Radius":
                     # Reset list of offsets

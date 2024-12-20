@@ -91,6 +91,7 @@ def nextSlide():
         for eff in currentSlide.effects:
             eff.message("dimensions", windowSize) # Message to inform effects of dimensions
     except Exception as e:
+        quit(1)
         print(f"Error caught in nextSlide: {e}")
 
 nextSlide()
@@ -102,10 +103,10 @@ window.bind("<Right>", lambda x: nextSlide()) # When you press the right arrow k
 while running:
     try:
         frame = getFrame() # Get the frame
-        frame = frame.resize((windowSize[0] * scale, windowSize[1] * scale))
+        frame = frame.resize((windowSize[0] * scale, windowSize[1] * scale), Image.NEAREST)
         updateWindow(frame) # Put the frame in the window
         refresh() # Remind the window that it's not rendering the frame
     except Exception as e:
-        # An error occurred, print it for debugging purposes and quit safely
-        print(f"Error caught in mainloop: {e}")
+        # An error occurred, quit safely before raising the error
         quit(1)
+        raise e

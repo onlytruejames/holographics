@@ -9,9 +9,6 @@
     			"effectVariables": {
     				"Preserve Aspect Ratio": true
                 }
-            }, {
-    			"effectName": "santa",
-    			"compositeMode": "replace"
             }
         ]
     ]

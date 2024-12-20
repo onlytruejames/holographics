@@ -21,15 +21,14 @@ class Module:
         if not success:
             return image # As opposed to crashing
         cameraPicture = cvtColor(cameraPicture, COLOR_BGR2RGB)
-        cameraPicture = Image.fromarray(cameraPicture) # Convert to PIL format
-        cameraPicture = cameraPicture.convert("RGBA") # Ensure correct mode
+        cameraPicture = Image.fromarray(cameraPicture).convert("RGBA") # Convert to PIL format
         # There will likely be a conversion to get this image into the PIL format
         preservesAR = self.variables["Preserve Aspect Ratio"].value # Is the aspect ratio being preserved?
         if not preservesAR:
-            cameraPicture = cameraPicture.resize(self.dimensions)
+            cameraPicture = cameraPicture.resize(self.dimensions, Image.NEAREST)
             return cameraPicture
         else:
-            cameraPicture = cameraPicture.resize(self.resizeDims)
+            cameraPicture = cameraPicture.resize(self.resizeDims, Image.NEAREST)
             # Paste onto blank image at the correct coordinates to centre the camera photo
             blank = self.blankImage.copy()
             blank.paste(cameraPicture, self.resizeCoordinate)

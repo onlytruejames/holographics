@@ -45,4 +45,4 @@ class Module:
         match id:
             case "dimensions":
                 for key in directory:
-                    directory[key] = directory[key].resize(data)
+                    directory[key] = directory[key].resize(data, Image.NEAREST)

@@ -66,7 +66,7 @@ class Effect:
         try:
             self.module.message(id, data)
         except Exception as e:
-            print(f"Error caught in Effect.message: {e}")
+            print(f"Error caught in {self.name}.message: {e}")
             print(f"Message ID: {id}, Message Payload: {data}")
     
     @property
@@ -85,5 +85,5 @@ class Effect:
                 if not prevVariables[var] == value[var]:
                     self.message("variableUpdate", var)
         except Exception as e:
-            print(f"Error caught in Effect.variables.setter: {e}")
+            print(f"Error caught in {self.name}.variables.setter: {e}")
             pass # Do nothing

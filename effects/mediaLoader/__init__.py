@@ -8,7 +8,7 @@ class Module:
         self.imageWidth = 10
         self.imageHeight = 10
         self.index = 0
-        self.frames = ()
+        self.frames = []
         self.blankImage = None # Assigned in the message method
         preserveAR = EffectVariable("Preserve Aspect Ratio", "boolean", True, "When resizing the camera photo, preserve the aspect ratio?")
         mediaLocation = EffectVariable("Media Location", "string", "", "Location of the media's file")

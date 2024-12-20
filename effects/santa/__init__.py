@@ -26,6 +26,6 @@ class Module:
     def requestFrame(self, image):
         faces = findFaces(image)
         for f in faces:
-            thisSanta = nicholas.resize((f[2], f[3]))
+            thisSanta = nicholas.resize((f[2], f[3]), Image.NEAREST)
             image.alpha_composite(thisSanta, (f[0], f[1]))
         return image

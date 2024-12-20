@@ -9,7 +9,12 @@
     			"effectVariables": {
     				"Preserve Aspect Ratio": true
                 }
-            }
+            }, {
+				"effectName": "colourRemover",
+    			"effectVariables": {
+    				"Preserve Colour": false
+                }
+			}
         ]
     ]
 }

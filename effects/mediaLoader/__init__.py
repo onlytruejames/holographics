@@ -18,12 +18,15 @@ class Module:
         self.resizeDims = None # Dimensions the media is resized to
         self.resizeCoordinate = [0, 0] # And the coordinate it is pasted onto
 
-    def requestFrame(self, image):
+    def animated(self, image):
         # The image parameter is not used
         # If the media is animated, send it to the next frame and process this
         self.frames.append(self.frames.pop(0))
         return self.frames[-1]
     
+    def static(self, image):
+        return self.frames
+
     def message(self, id, data):
         match id: # Decide what to do with the message based on its identifier
             case "dimensions":
@@ -74,4 +77,9 @@ class Module:
         self.imageWidth = image.width
         self.imageHeight = image.height # Update values of dimensions
         self.frames = ImageSequence.all_frames(image, self.frameProcess) # Get list of frames
+        if len(self.frames) == 1:
+            self.frames = self.frames[0]
+            self.requestFrame = self.static
+        else:
+            self.requestFrame = self.animated
         self.index = 0 # Reset frame index

@@ -59,7 +59,7 @@ def getFrame():
     # Assuming a global variable for the slide and dimensions
     image = blankImage.copy()
     for eff in currentSlide.effects: # Iterate through all effects and process frames through all
-        newImage = eff.requestFrame(image)
+        newImage = eff.requestFrame(image).copy()
         # Decide how to composite the new and old frames together
         match eff.compositeMode:
             # At first I'm only supporting "front", "behind", and "replace".

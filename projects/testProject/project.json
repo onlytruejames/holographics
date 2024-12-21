@@ -4,15 +4,21 @@
 	"sequence": [
         [
     		{
-    			"effectName": "camera",
+    			"effectName": "mediaLoader",
     			"compositeMode": "replace",
     			"effectVariables": {
-    				"Preserve Aspect Ratio": true
+    				"Preserve Aspect Ratio": true,
+					"Media Location": "projects/testProject/media/outline.png"
                 }
             }, {
 				"effectName": "colourRemover",
     			"effectVariables": {
-    				"Preserve Colour": false
+    				"Preserve Colour": true
+                }
+			}, {
+				"effectName": "fadeback",
+    			"effectVariables": {
+    				"Rate": 4
                 }
 			}
         ]

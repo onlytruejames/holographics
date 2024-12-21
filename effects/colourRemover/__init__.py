@@ -14,6 +14,7 @@ class Module:
         }
 
     def requestFrame(self, img):
+        originalMask = np.array(img.getchannel("A"))
         # Get colour coordinates
         coords = (random.randint(0, img.width - 1), random.randint(0, img.height - 1))
         # Blur image slightly
@@ -25,5 +26,7 @@ class Module:
         if self.variables["Preserve Colour"].value:
             mask = 1 - mask
         # Apply mask with 0 and 255 instead
-        img.putalpha(Image.fromarray((mask * 255).astype(np.uint8)))
+        mask = mask.astype(np.uint8) * 255
+        mask = np.minimum(mask, originalMask)
+        img.putalpha(Image.fromarray(mask))
         return img

@@ -36,6 +36,11 @@ class Module:
                 directory[id] = image
                 image = image - oldVal
                 image = np.abs(image)
+            case "Compare/Store":
+                oldVal = directory[id]
+                directory[id] = image
+                image = image - oldVal
+                image = np.abs(image)
         image = np.clip(image, 0, 255)
         newImage = Image.fromarray(image.astype(np.uint8))
         newImage.putalpha(alpha)

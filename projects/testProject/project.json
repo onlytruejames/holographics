@@ -11,7 +11,7 @@
 					"Media Location": "projects/testProject/media/outline.png"
                 }
             }, {
-				"effectName": "colourRemover",
+				"effectName": "randomColourRemover",
     			"effectVariables": {
     				"Preserve Colour": true
                 }

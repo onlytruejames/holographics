@@ -7,7 +7,7 @@ gaussian = ImageFilter.GaussianBlur()
 
 class Module:
     def __init__(self):
-        self.name = "colourRemover"
+        self.name = "randomColourRemover"
         self.description = "Removes a random colour from the image"
         self.variables = {
             "Preserve Colour": EffectVariable("Preserve Colour", "boolean", True, "Preserve only the random colour or remove only the random colour?")

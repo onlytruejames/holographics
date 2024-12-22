@@ -59,7 +59,11 @@ class Effect:
             self.description = ""
 
     def requestFrame(self, image):
-        return self.module.requestFrame(image)
+        try:
+            return self.module.requestFrame(image)
+        except Exception as e:
+            print(f"Error in {self.name}.requestFrame")
+            raise e
 
     def message(self, id, data):
         # Send a message if possible, but if the method is written badly, just print the id and data of the message.

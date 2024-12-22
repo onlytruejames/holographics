@@ -72,6 +72,9 @@ class Module:
             blank.paste(image, self.resizeCoordinate)
             return blank
     
+    def requestFrame(self, image):
+        return image # Gets changed immediately
+
     def loadFrames(self):
         image = Image.open(self.variables["Media Location"].value)
         self.imageWidth = image.width
@@ -80,6 +83,8 @@ class Module:
         if len(self.frames) == 1:
             self.frames = self.frames[0]
             self.requestFrame = self.static
+            print("I executed!")
         else:
             self.requestFrame = self.animated
+            print("No, I executed!")
         self.index = 0 # Reset frame index

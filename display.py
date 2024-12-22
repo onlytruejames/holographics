@@ -86,12 +86,14 @@ def nextSlide():
         global slideIndex
         global currentSlide
         slideIndex += 1 # Increment by 1
-        currentSlide = Slide() # Create slide
-        currentSlide.load(sequence[slideIndex]) # Load into slide
-        for eff in currentSlide.effects:
+        newSlide = Slide() # Create slide
+        newSlide.load(sequence[slideIndex]) # Load into slide
+        for eff in newSlide.effects:
             eff.message("dimensions", windowSize) # Message to inform effects of dimensions
+        currentSlide = newSlide
     except Exception as e:
         quit(1)
+        raise e
         print(f"Error caught in nextSlide: {e}")
 
 nextSlide()

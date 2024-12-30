@@ -66,3 +66,5 @@ class Module:
                 ) # Halfway between (0, 0) and the difference between the dimensions 
                 # results in a centred placement. Also rounded to be an integer.
                 self.resizeCoordinate = coordinate
+            case "slideEnd":
+                self.cameraObject.release()

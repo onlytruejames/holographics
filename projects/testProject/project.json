@@ -1,26 +1,27 @@
 {
 	"name": "testProject",
-    "scale": 3,
+    "scale": 10,
 	"sequence": [
         [
     		{
-    			"effectName": "mediaLoader",
+    			"effectName": "camera",
     			"compositeMode": "replace",
     			"effectVariables": {
-    				"Preserve Aspect Ratio": true,
-					"Media Location": "projects/testProject/media/outline.png"
-                }
-            }, {
-				"effectName": "randomColourRemover",
-    			"effectVariables": {
-    				"Preserve Colour": true
-                }
+    				"Preserve Aspect Ratio": true
+                	}
 			}, {
-				"effectName": "fadeback",
+    			"effectName": "randomColourRemover"
+			}, {
+    			"effectName": "fadeback"
+			}
+		], [
+    		{
+    			"effectName": "camera",
+    			"compositeMode": "replace",
     			"effectVariables": {
-    				"Rate": 4
+    				"Preserve Aspect Ratio": true
                 }
 			}
-        ]
+		]
     ]
 }

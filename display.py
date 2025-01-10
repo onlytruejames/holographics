@@ -37,6 +37,7 @@ class DisplayWindow:
         self.createSlide()
 
     def getFrame(self):
+        # this is the first time i've used the walrus operator :) :) :) :) :)
         if not (newSize := self.getWindowSize()) == self.windowSize:
             windowSize = newSize
             for eff in self.currentSlide.effects:

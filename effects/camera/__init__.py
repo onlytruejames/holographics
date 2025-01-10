@@ -1,13 +1,25 @@
 from components import EffectVariable
 from cv2 import VideoCapture, cvtColor, COLOR_BGR2RGB
 from PIL import Image
+
+class CameraManager:
+    def __init__(self):
+        self.cameras = {}
+    def get(self, index):
+        if index in self.cameras:
+            return self.cameras[index]
+        self.cameras[index] = VideoCapture(index)
+        return self.cameras[index]
+
+cams = CameraManager()
+
 class Module:
     def __init__(self):
         self.name = "camera"
         self.description = "Use a webcam as a source"
         self.dimensions = [100, 100] # default
         self.blankImage = None # I will assign this later, this won't be accessed before
-        self.cameraObject = VideoCapture(0) # Create a camera object
+        self.cameraObject = cams.get(0)
         preserveAR = EffectVariable("Preserve Aspect Ratio", "boolean", True, "When resizing the camera photo, preserve the aspect ratio?")
         # Assign variables as an attribute so it is externally available
         self.variables = {"Preserve Aspect Ratio": preserveAR}

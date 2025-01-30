@@ -2,6 +2,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 from json import load
 from classes import Slide
+import numpy as np
 
 class DisplayWindow:
     def __init__(self, name, debugging=False):
@@ -57,6 +58,25 @@ class DisplayWindow:
                     image = Image.alpha_composite(newImage, image)
                 case "replace":
                     image = newImage
+                case "max":
+                    image = Image.fromarray(
+                        np.maximum(
+                            np.array(image),
+                            np.array(newImage)
+                        )
+                    )
+                case "min":
+                    image = Image.fromarray(
+                        np.minimum(
+                            np.array(image),
+                            np.array(newImage)
+                        )
+                    )
+                case "multiply":
+                    image = np.array(image).astype(np.int16)
+                    newImage = np.array(newImage).astype(np.int16)
+                    image = (image * newImage) // 256
+                    image = Image.fromarray(image.astype(np.uint8))
         black = self.blackImage.copy()
         black.alpha_composite(image)
         return black

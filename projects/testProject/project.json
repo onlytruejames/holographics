@@ -5,35 +5,12 @@
         [
     		{
     			"effectName": "camera",
-    			"compositeMode": "replace",
     			"effectVariables": {
     				"Preserve Aspect Ratio": true
-                }
-			}, {
-				"effectName": "slideInception",
-				"compositeMode": "front",
-				"effectVariables": {
-					"Slide": [
-						{
-							"effectName": "camera",
-							"compositeMode": "replace",
-							"effectVariables": {
-								"Preserve Aspect Ratio": true
-							}
-						}, {
-							"effectName": "randomColourRemover",
-							"effectVariables": {
-								"Preserve Colour": false
-							}
-						}, {
-							"effectName": "saturate",
-							"effectVariables": {
-								"Amount": 0
-							}
-						}
-					]
 				}
+			}, {
+				"effectName": "faceOnly"
 			}
 		]
-    ]
+	]
 }

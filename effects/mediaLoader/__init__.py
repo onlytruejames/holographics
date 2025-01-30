@@ -83,8 +83,6 @@ class Module:
         if len(self.frames) == 1:
             self.frames = self.frames[0]
             self.requestFrame = self.static
-            print("I executed!")
         else:
             self.requestFrame = self.animated
-            print("No, I executed!")
         self.index = 0 # Reset frame index

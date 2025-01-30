@@ -4,6 +4,7 @@ from components import EffectVariable
 from uuid import uuid4
 from importlib import import_module
 from os import listdir
+import numpy as np
 
 def importModules():
     directories = listdir("effects") # List all directories in holographics/effects
@@ -131,6 +132,25 @@ class Module:
                     image = Image.alpha_composite(newImage, image)
                 case "replace":
                     image = newImage
+                case "max":
+                    image = Image.fromarray(
+                        np.maximum(
+                            np.array(image),
+                            np.array(newImage)
+                        )
+                    )
+                case "min":
+                    image = Image.fromarray(
+                        np.minimum(
+                            np.array(image),
+                            np.array(newImage)
+                        )
+                    )
+                case "multiply":
+                    image = np.array(image).astype(np.int16)
+                    newImage = np.array(newImage).astype(np.int16)
+                    image = (image * newImage) // 256
+                    image = Image.fromarray(image.astype(np.uint8))
         return image
 
     def createSlide(self):

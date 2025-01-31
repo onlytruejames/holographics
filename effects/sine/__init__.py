@@ -1,4 +1,4 @@
-from components import EffectVariable
+from components import VariableManager
 import numpy as np
 from PIL import Image
 
@@ -7,7 +7,7 @@ class Module:
         self.name = "sine"
         self.description = "Returns the sine of a frame"
         self.variables = {
-            "Multiplier": EffectVariable("Multiplier", "float", 1, "How much are the RGB values multiplied by before performing sine?")
+            "Multiplier": VariableManager("Multiplier", "float", 1, "How much are the RGB values multiplied by before performing sine?")
         }
     
     def requestFrame(self, image):

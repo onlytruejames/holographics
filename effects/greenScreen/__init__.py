@@ -1,14 +1,14 @@
 from PIL import Image
 import numpy as np
-from components import EffectVariable
+from components import VariableManager
 
 class Module:
     def __init__(self):
         self.name = "greenScreen"
         self.description = "Remove all colours similar to a specified colour."
         self.variables = {
-            "Colour": EffectVariable("Colour", "RGB", (0, 0, 0), "The colour to be removed"),
-            "Proximity": EffectVariable("Proximity", "int", 10, "How close does a colour need to be to this colour?")
+            "Colour": VariableManager("Colour", "RGB", (0, 0, 0), "The colour to be removed"),
+            "Proximity": VariableManager("Proximity", "int", 10, "How close does a colour need to be to this colour?")
         }
     
     def requestFrame(self, img):

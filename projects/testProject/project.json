@@ -1,6 +1,6 @@
 {
 	"name": "testProject",
-    "scale": 1,
+    "scale": 2,
 	"sequence": [
         [
     		{
@@ -9,7 +9,34 @@
     				"Preserve Aspect Ratio": true
 				}
 			}, {
-				"effectName": "faceOnly"
+				"effectName": "difference",
+				"effectVariables": {
+					"Id": "firstlast",
+					"Mode": "Store"
+				}
+			}, {
+				"effectName": "expandingColours",
+				"effectVariables": {
+					"Radius": 2
+				}
+			}, {
+				"effectName": "difference",
+				"effectVariables": {
+					"Mode": "Compare"
+				}
+			}, {
+				"effectName": "invert",
+				"merger": {
+					"mergerName": "multiply",
+					"mergerVariables": {
+						"Algorithm": 1
+					}
+				}
+			}, {
+				"effectName": "difference",
+				"effectVariables": {
+					"Mode": "Store"
+				}
 			}
 		]
 	]

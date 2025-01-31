@@ -1,7 +1,7 @@
 # Return the difference between two frames. This module can be setup as a storer, a comparer, or a storer and comparer.
 from PIL import Image
 import numpy as np
-from components import EffectVariable
+from components import VariableManager
 
 global directory
 directory = {}
@@ -10,8 +10,8 @@ class Module:
     def __init__(self):
         self.name = "difference"
         self.description = "Return the difference between two frames. This module can be setup as a storer, a comparer, or a storer and a comparer."
-        mode = EffectVariable("Mode", "string", "Store/Compare", "Whether this module is a storer, a comparer, or a storer and a comparer.")
-        id = EffectVariable("Id", "string", "beanchester united", "The identifier which links up storers and comparers and their relevant data. If an identifier has no associated image when compared against, a storer becomes a comparer.")
+        mode = VariableManager("Mode", "string", "Store/Compare", "Whether this module is a storer, a comparer, or a storer and a comparer.")
+        id = VariableManager("Id", "string", "beanchester united", "The identifier which links up storers and comparers and their relevant data. If an identifier has no associated image when compared against, a storer becomes a comparer.")
         self.variables = {
             "Mode": mode,
             "Id": id,

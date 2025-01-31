@@ -1,4 +1,4 @@
-from components import EffectVariable
+from components import VariableManager
 from PIL import Image, ImageSequence
 class Module:
     def __init__(self):
@@ -10,8 +10,8 @@ class Module:
         self.index = 0
         self.frames = []
         self.blankImage = None # Assigned in the message method
-        preserveAR = EffectVariable("Preserve Aspect Ratio", "boolean", True, "When resizing the camera photo, preserve the aspect ratio?")
-        mediaLocation = EffectVariable("Media Location", "string", "", "Location of the media's file")
+        preserveAR = VariableManager("Preserve Aspect Ratio", "boolean", True, "When resizing the camera photo, preserve the aspect ratio?")
+        mediaLocation = VariableManager("Media Location", "string", "", "Location of the media's file")
         # Assign variables as an attribute so it is externally available
         self.variables = {"Preserve Aspect Ratio": preserveAR, "Media Location": mediaLocation}
         # Below are relevant variables to zoomToFit

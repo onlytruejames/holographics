@@ -49,34 +49,7 @@ class DisplayWindow:
         image = self.blankImage.copy()
         for eff in self.currentSlide.effects: # Iterate through all effects and process frames through all
             newImage = eff.requestFrame(image).copy()
-            # Decide how to composite the new and old frames together
-            match eff.compositeMode:
-                # At first I'm only supporting "front", "behind", and "replace".
-                case "front":
-                    image = Image.alpha_composite(image, newImage)
-                case "behind":
-                    image = Image.alpha_composite(newImage, image)
-                case "replace":
-                    image = newImage
-                case "max":
-                    image = Image.fromarray(
-                        np.maximum(
-                            np.array(image),
-                            np.array(newImage)
-                        )
-                    )
-                case "min":
-                    image = Image.fromarray(
-                        np.minimum(
-                            np.array(image),
-                            np.array(newImage)
-                        )
-                    )
-                case "multiply":
-                    image = np.array(image).astype(np.int16)
-                    newImage = np.array(newImage).astype(np.int16)
-                    image = (image * newImage) // 256
-                    image = Image.fromarray(image.astype(np.uint8))
+            image = eff.merger.merge(image, newImage).copy()
         black = self.blackImage.copy()
         black.alpha_composite(image)
         return black

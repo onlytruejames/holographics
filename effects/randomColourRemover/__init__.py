@@ -1,7 +1,7 @@
 from PIL import Image, ImageFilter
 import numpy as np
 import random
-from components import EffectVariable
+from components import VariableManager
 
 gaussian = ImageFilter.GaussianBlur()
 
@@ -10,7 +10,7 @@ class Module:
         self.name = "randomColourRemover"
         self.description = "Removes a random colour from the image"
         self.variables = {
-            "Preserve Colour": EffectVariable("Preserve Colour", "boolean", True, "Preserve only the random colour or remove only the random colour?")
+            "Preserve Colour": VariableManager("Preserve Colour", "boolean", True, "Preserve only the random colour or remove only the random colour?")
         }
 
     def requestFrame(self, img):

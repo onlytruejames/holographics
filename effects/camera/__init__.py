@@ -1,4 +1,4 @@
-from components import EffectVariable
+from components import VariableManager
 from cv2 import VideoCapture, cvtColor, COLOR_BGR2RGB
 from PIL import Image
 
@@ -20,7 +20,7 @@ class Module:
         self.dimensions = [100, 100] # default
         self.blankImage = None # I will assign this later, this won't be accessed before
         self.cameraObject = cams.get(0)
-        preserveAR = EffectVariable("Preserve Aspect Ratio", "boolean", True, "When resizing the camera photo, preserve the aspect ratio?")
+        preserveAR = VariableManager("Preserve Aspect Ratio", "boolean", True, "When resizing the camera photo, preserve the aspect ratio?")
         # Assign variables as an attribute so it is externally available
         self.variables = {"Preserve Aspect Ratio": preserveAR}
         # Below are relevant variables to zoomToFit

@@ -1,6 +1,6 @@
 from PIL import Image
 import numpy as np
-from components import EffectVariable
+from components import VariableManager
 import math as maths
 
 class Module:
@@ -8,9 +8,9 @@ class Module:
         self.name = "expandingColours"
         self.description = "Dissolve effect which works by setting the value of a pixel to the brightest, nearest value in its surroundings from the current or previous frame."
         self.variables = {
-            "Radius": EffectVariable("Radius", "int", 2, "Radius over which the dissolve effect operates for any pixel. Controls number of pixels."),
-            "Decay": EffectVariable("Decay", "float", 0.2, "Amount the brightness of the previous image is reduced by"),
-            "Spread": EffectVariable("Spread", "int", 1, "Distance multiplier for the pixels in radius. Does not affect the number of pixels, only how far apart they are.")
+            "Radius": VariableManager("Radius", "int", 2, "Radius over which the dissolve effect operates for any pixel. Controls number of pixels."),
+            "Decay": VariableManager("Decay", "float", 0.2, "Amount the brightness of the previous image is reduced by"),
+            "Spread": VariableManager("Spread", "int", 1, "Distance multiplier for the pixels in radius. Does not affect the number of pixels, only how far apart they are.")
         }
         self.dimensions = (100, 100)
         self.previousImage = np.array(Image.new("RGBA", self.dimensions, (0, 0, 0, 255)))

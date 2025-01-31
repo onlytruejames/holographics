@@ -1,6 +1,6 @@
 # A slide within a slide
 from PIL import Image
-from components import EffectVariable
+from components import VariableManager
 from uuid import uuid4
 from importlib import import_module
 from os import listdir
@@ -102,7 +102,7 @@ class Module:
         self.name = "effectInception"
         self.description = "Create another independent slide and return the results"
         self.variables = {
-            "Slide": EffectVariable("Slide", "slide", [], "Slide data for the independent slide")
+            "Slide": VariableManager("Slide", "slide", [], "Slide data for the independent slide")
         }
         self.dimensions = (100, 100)
         self.blankImage = Image.new("RGBA", self.dimensions, (0, 0, 0, 0)) # Create an empty transparent image to apply the first effect to

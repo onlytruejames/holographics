@@ -2,7 +2,7 @@ from uuid import uuid4
 from importlib import import_module
 from os import listdir
 
-def importModules():
+def importEffectModules():
     directories = listdir("effects") # List all directories in holographics/effects
     classes = {} # Create a dictionary to contain the names and Module classes of all the effect modules
     for dir in directories:
@@ -10,12 +10,40 @@ def importModules():
             importedModule = import_module(f"effects.{dir}").Module # Import the module class from the effect module
             classes[dir] = importedModule # Assign this module to the dictionary of classes
         except Exception as e:
-            print(f"Error caught in importModules: {e}")
+            print(f"Error caught in importEffectModules: {e}")
             # Non-importable directory, do nothing
             pass
     return classes
 
-Classes = importModules()
+EffectClasses = importEffectModules()
+
+def importMergerModules():
+    directories = listdir("mergers") # List all directories in holographics/mergers
+    classes = {} # Create a dictionary to contain the names and Merger classes of all the merger modules
+    for dir in directories:
+        try:
+            importedModule = import_module(f"mergers.{dir}").Merger # Import the merger class from the merger module
+            classes[dir] = importedModule # Assign this module to the dictionary of classes
+        except Exception as e:
+            print(f"Error caught in importMergerModules: {e}")
+            # Non-importable directory, do nothing
+            pass
+    return classes
+
+MergerClasses = importMergerModules()
+
+def createMerger(data: dict):
+    merger = MergerClasses[data["mergerName"]]() # Instantiated merger instance
+    try:
+        assert merger.variables
+    except:
+        return merger
+    if not "mergerVariables" in data:
+        data["mergerVariables"] = {}
+    for var in data["mergerVariables"]:
+        if var in merger.variables:
+            merger.variables[var].value = data["mergerVariables"][var]
+    return merger
 
 class Slide:
     def __init__(self):
@@ -25,29 +53,29 @@ class Slide:
     def load(self, effects):
         effectsList = [] # Empty list of effects to be assigned to this.effects
         for eff in effects:
-            if not "compositeMode" in eff:
-                eff["compositeMode"] = "replace"
+            if not "merger" in eff:
+                eff["merger"] = {"mergerName": "replace"}
             if not "effectVariables" in eff:
                 eff["effectVariables"] = {}
-            newEffect = Effect(eff["effectName"], eff["compositeMode"], eff["effectVariables"])
+            newEffect = Effect(eff["effectName"], eff["merger"], eff["effectVariables"])
             # Create effect object of given type with correct composite mode and variables
             effectsList.append(newEffect) # Add to list of effects
         self.effects = effectsList
 
 class Effect:
-    def __init__(self, moduleName, compositeMode="replace", variables=None):
+    def __init__(self, moduleName, merger, variables=None):
         # HOW THE INHERITANCE WORKS:
         # All attributes of this class can be defined here.
-        # self.effectId, self.compositeMode
+        # self.effectId, self.merger
         # Static attributes of Module can be inherited here.
         # self.name, self.description
         # Methods and dynamic attributes of Module need getters, setters, and wrappers so 
         # their scopes remain in the Module class so are available outside new().
         # self.requestFrame, self.message, self.variables
         # There will be a dictionary called Classes which contains the names and Module objects of all modules
-        self.module = Classes[moduleName]() # Create new instance of the correct Module
+        self.module = EffectClasses[moduleName]() # Create new instance of the correct Module
         self.effectId = uuid4() # As with earlier, not implementing this
-        self.compositeMode = compositeMode
+        self.merger = createMerger(merger)
         self.name = self.module.name
         for var in variables:
             self.module.variables[var].value = variables[var] # Variables from text to objects

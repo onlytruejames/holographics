@@ -1,13 +1,13 @@
 from PIL import Image
 import numpy as np
-from components import EffectVariable
+from components import VariableManager
 
 class Module:
     def __init__(self):
         self.name = "pixelDifference"
         self.description = "Return the difference a pixel has to its neighbouring pixels"
         self.variables = {
-            "Mode": EffectVariable("Mode", "string", "maximum", "Find the maximum/minimum/average difference from the surround pixels, or find the difference from 1 pixel left/right/up/down.")
+            "Mode": VariableManager("Mode", "string", "maximum", "Find the maximum/minimum/average difference from the surround pixels, or find the difference from 1 pixel left/right/up/down.")
         }
     def requestFrame(self, image):
         alpha = image.getchannel("A")

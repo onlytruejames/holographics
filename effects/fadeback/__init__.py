@@ -1,15 +1,15 @@
 from PIL import Image
 import numpy as np
-from components import EffectVariable
+from components import VariableManager
 
 class Module:
     def __init__(self):
         self.name = "fadeback"
         self.description = "Create a 3D-style effect by pasting the previous frame behind this one, but slightly smaller."
         self.variables = {
-            "Rate": EffectVariable("Rate", "integer", 1, "Number of pixels the image shrinks by each frame"),
-            "Mode": EffectVariable("Mode", "integer", 2, "(0-5): Specifies the resizing mode from [NEAREST, BOX, BILINEAR, HAMMING, BICUBIC, LANCZOS]"),
-            "Reducing Gap": EffectVariable("Reducing Gap", "integer", 1, "Specify the reducing gap of the resizing function.")
+            "Rate": VariableManager("Rate", "integer", 1, "Number of pixels the image shrinks by each frame"),
+            "Mode": VariableManager("Mode", "integer", 2, "(0-5): Specifies the resizing mode from [NEAREST, BOX, BILINEAR, HAMMING, BICUBIC, LANCZOS]"),
+            "Reducing Gap": VariableManager("Reducing Gap", "integer", 1, "Specify the reducing gap of the resizing function.")
         }
         self.modes = [
             Image.NEAREST,

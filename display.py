@@ -2,7 +2,6 @@ import tkinter as tk
 from PIL import Image, ImageTk
 from json import load
 from classes import Slide
-import numpy as np
 
 class DisplayWindow:
     def __init__(self, name, debugging=False):

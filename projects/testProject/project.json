@@ -1,41 +1,12 @@
 {
 	"name": "testProject",
-    "scale": 2,
+    "scale": 1,
 	"sequence": [
         [
     		{
     			"effectName": "camera",
     			"effectVariables": {
     				"Preserve Aspect Ratio": true
-				}
-			}, {
-				"effectName": "difference",
-				"effectVariables": {
-					"Id": "firstlast",
-					"Mode": "Store"
-				}
-			}, {
-				"effectName": "expandingColours",
-				"effectVariables": {
-					"Radius": 2
-				}
-			}, {
-				"effectName": "difference",
-				"effectVariables": {
-					"Mode": "Compare"
-				}
-			}, {
-				"effectName": "invert",
-				"merger": {
-					"mergerName": "multiply",
-					"mergerVariables": {
-						"Algorithm": 1
-					}
-				}
-			}, {
-				"effectName": "difference",
-				"effectVariables": {
-					"Mode": "Store"
 				}
 			}
 		]

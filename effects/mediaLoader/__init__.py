@@ -1,5 +1,8 @@
 from components import VariableManager
 from PIL import Image, ImageSequence
+from random import choice
+from os import walk, path
+
 class Module:
     def __init__(self):
         self.name = "mediaLoader"
@@ -10,10 +13,12 @@ class Module:
         self.index = 0
         self.frames = []
         self.blankImage = None # Assigned in the message method
-        preserveAR = VariableManager("Preserve Aspect Ratio", "boolean", True, "When resizing the camera photo, preserve the aspect ratio?")
-        mediaLocation = VariableManager("Media Location", "string", "", "Location of the media's file")
         # Assign variables as an attribute so it is externally available
-        self.variables = {"Preserve Aspect Ratio": preserveAR, "Media Location": mediaLocation}
+        self.variables = {
+            "Preserve Aspect Ratio": VariableManager("Preserve Aspect Ratio", "boolean", True, "When resizing the camera photo, preserve the aspect ratio?"),
+            "Media Location": VariableManager("Media Location", "string", "", "Location of the media's file"),
+            "Random Sequence": VariableManager("Random Sequence", "boolean", False, "If animated, display the frames in a random order?")
+        }
         # Below are relevant variables to zoomToFit
         self.resizeDims = None # Dimensions the media is resized to
         self.resizeCoordinate = [0, 0] # And the coordinate it is pasted onto
@@ -23,6 +28,10 @@ class Module:
         # If the media is animated, send it to the next frame and process this
         self.frames.append(self.frames.pop(0))
         return self.frames[-1]
+    
+    def randimated(self, image):
+        # Return random frame
+        return choice(self.frames)
     
     def static(self, image):
         return self.frames
@@ -73,16 +82,33 @@ class Module:
             return blank
     
     def requestFrame(self, image):
-        return image # Gets changed immediately
+        return image # This function gets changed immediately
 
     def loadFrames(self):
-        image = Image.open(self.variables["Media Location"].value)
-        self.imageWidth = image.width
-        self.imageHeight = image.height # Update values of dimensions
-        self.frames = ImageSequence.all_frames(image, self.frameProcess) # Get list of frames
+        location = self.variables["Media Location"].value
+        try:
+            image = Image.open(location)
+            self.imageWidth = image.width
+            self.imageHeight = image.height # Update values of dimensions
+            self.frames = ImageSequence.all_frames(image, self.frameProcess) # Get list of frames
+        except:
+            fnames = []
+            for (dirpath, dirnames, names) in walk(location):
+                fnames.extend(names)
+                break
+            frames = []
+            for f in fnames:
+                try:
+                    frames.append(self.frameProcess(Image.open(path.join(location, f))))
+                except:
+                    pass
+            self.imageWidth, self.imageHeight = frames[0].width, frames[0].height
+            self.frames = frames
         if len(self.frames) == 1:
             self.frames = self.frames[0]
             self.requestFrame = self.static
+        elif self.variables["Random Sequence"].value:
+            self.requestFrame = self.randimated
         else:
             self.requestFrame = self.animated
         self.index = 0 # Reset frame index

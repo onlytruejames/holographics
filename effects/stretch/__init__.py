@@ -17,9 +17,9 @@ class Module:
     def newLine(self):
         self.mode = choice(["x", "y"])
         if self.mode == "x":
-            length = self.dims[0]
-        else:
             length = self.dims[1]
+        else:
+            length = self.dims[0]
         self.line = randint(0, self.variables["Area"].value * length / 2)
         self.negative = choice([True, False])
     

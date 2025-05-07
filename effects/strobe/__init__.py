@@ -11,6 +11,7 @@ class Module:
         self.phase = 0
 
     def requestFrame(self, image):
+        alpha = image.getchannel("A")
         image = np.array(image) # Use numpy in my case to turn the image into a 2D array
         self.phase += 1
         freq = self.variables["Frequency"].value
@@ -21,4 +22,5 @@ class Module:
         image = image * multiplier # Produce brightness result
         image = image.astype(np.uint8) # Ensure that all pixel values are integers
         image = Image.fromarray(image) # Convert back into image datatype
+        image.putalpha(alpha)
         return image

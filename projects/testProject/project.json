@@ -8,6 +8,8 @@
     			"effectVariables": {
     				"Preserve Aspect Ratio": true
 				}
+			}, {
+				"effectName": "randomColourRemover"
 			}
 		]
 	]

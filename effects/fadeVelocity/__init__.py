@@ -10,7 +10,8 @@ class Module:
         self.variables = {
             "Constant": VariableManager("Constant", "boolean", False, "Is the velocity constant, or is it random?"),
             "Velocity": VariableManager("Velocity", "array", np.array([1, 1]), "The velocity of the offset. If the velocity is random, the first value is the maximum speed."),
-            "Rate": VariableManager("Rate", "int", 5, "The amount of time taken for the acceleration to change")
+            "Rate": VariableManager("Rate", "int", 5, "The amount of time taken for the acceleration to change"),
+            "Fade": VariableManager("Fade", "integer", 10, "Specifies how much the image dims between frames")
         }
         self.acceleration = np.array([1, 0])
         self.velocity = np.array([1, 1])
@@ -27,7 +28,7 @@ class Module:
                 self.lastImg = self.lastImg.resize(data, Image.NEAREST)
 
     def requestFrame(self, image):
-        backImage = np.array(self.lastImg)
+        backImage = np.clip((np.array(self.lastImg).astype(np.int64) - self.variables["Fade"].value), 0, 255).astype(np.uint8)
         if not self.variables["Constant"].value:
             varVelocity = abs(self.variables["Velocity"].value[0])
             if random.randint(0, self.variables["Rate"].value) == 1:

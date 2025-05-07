@@ -9,7 +9,8 @@ class Module:
         self.variables = {
             "Rate": VariableManager("Rate", "integer", 1, "Number of pixels the image shrinks by each frame"),
             "Mode": VariableManager("Mode", "integer", 2, "(0-5): Specifies the resizing mode from [NEAREST, BOX, BILINEAR, HAMMING, BICUBIC, LANCZOS]"),
-            "Reducing Gap": VariableManager("Reducing Gap", "integer", 1, "Specify the reducing gap of the resizing function.")
+            "Reducing Gap": VariableManager("Reducing Gap", "integer", 1, "Specify the reducing gap of the resizing function."),
+            "Fade": VariableManager("Fade", "integer", 10, "Specifies how much the image dims between frames")
         }
         self.modes = [
             Image.NEAREST,
@@ -38,6 +39,7 @@ class Module:
     def requestFrame(self, image):
         amount = self.variables["Rate"].value
         last = self.lastImg.resize(self.dims, self.modes[self.variables["Mode"].value], reducing_gap=self.variables["Reducing Gap"].value)
+        last = Image.fromarray(np.clip((np.array(last).astype(np.int64) - self.variables["Fade"].value), 0, 255).astype(np.uint8))
         blank = self.blank.copy()
         blank.alpha_composite(last, (amount, amount))
         blank.alpha_composite(image)

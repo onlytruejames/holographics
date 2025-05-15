@@ -9,7 +9,17 @@
     				"Preserve Aspect Ratio": true
 				}
 			}, {
-				"effectName": "randomColourRemover"
+				"effectName": "difference",
+				"effectVariables": {
+					"Mode": "Store"
+				}
+			}, {
+				"effectName": "colourNormalise"
+			}, {
+				"effectName": "difference",
+				"effectVariables": {
+					"Mode": "Compare"
+				}
 			}
 		]
 	]

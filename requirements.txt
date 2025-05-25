@@ -2,3 +2,4 @@ numpy==2.2.0
 opencv-python==4.10.0.84
 pillow==11.0.0
 tk==0.1.0
+cv2-enumerate-cameras==1.1.18.3

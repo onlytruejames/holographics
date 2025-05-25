@@ -2,6 +2,22 @@
 	"name": "testProject",
     "scale": 1,
 	"sequence": [
+		[
+			{
+				"effectName": "camera",
+				"effectVariables": {
+					"Camera Name": "USB 2.0 Camera: USB Camera"
+				}
+			}, {
+				"effectName": "camera",
+				"effectVariables": {
+					"Camera Name": "Integrated RGB Camera: Integrat"
+				},
+				"merger": {
+					"mergerName": "max"
+				}
+			}
+		],
         [
     		{
     			"effectName": "camera",

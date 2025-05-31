@@ -14,3 +14,7 @@ class Module:
         image = ImageChops.invert(image)
         image.putalpha(alpha)
         return image
+    
+    def message(self, id, data):
+        #shut UP debug
+        pass

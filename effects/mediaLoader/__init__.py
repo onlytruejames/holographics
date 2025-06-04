@@ -25,7 +25,8 @@ class Module:
             "Preserve Aspect Ratio": VariableManager("Preserve Aspect Ratio", "boolean", True, "When resizing the camera photo, preserve the aspect ratio?"),
             "Media Location": VariableManager("Media Location", "string", "", "Location of the media's file"),
             "Random Sequence": VariableManager("Random Sequence", "boolean", False, "If animated, display the frames in a random order?"),
-            "Cache": VariableManager("Cache", "boolean", True, "Cache this media file for future use?")
+            "Cache": VariableManager("Cache", "boolean", True, "Cache this media file for future use?"),
+            "Is Cache Module": VariableManager("CacheModule", "boolean", False, "Is this module only being used to cache an image?")
         }
         # Below are relevant variables to zoomToFit
         self.resizeDims = None # Dimensions the media is resized to
@@ -74,6 +75,8 @@ class Module:
             case "variableUpdate":
             	if data == "Media Location":
                     self.loadFrames()
+            case _:
+                pass
     
     def frameProcess(self, image):
         image = image.convert("RGBA")
@@ -90,7 +93,7 @@ class Module:
             return blank
     
     def requestFrame(self, image):
-        return image # This function gets changed immediately
+        return image # This function gets changed immediately OR the module is only being used to cache an image
 
     def loadFrames(self):
         location = self.variables["Media Location"].value
@@ -123,4 +126,6 @@ class Module:
             self.requestFrame = self.randimated
         else:
             self.requestFrame = self.animated
+        if self.variables["Is Cache module"].value:
+            self.requestFrame = self.requestFrame
         self.index = 0 # Reset frame index

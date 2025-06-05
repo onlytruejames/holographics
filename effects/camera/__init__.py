@@ -83,44 +83,53 @@ class Module:
             blank = self.blankImage.copy()
             blank.paste(cameraPicture, self.resizeCoordinate)
             return blank
-        
+    
+    def dimensionConfig(self):
+        try:
+            # First we compare the aspect ratios of the media file and the 
+            # requested dimensions. Aspect ratio is width / height, which can be 
+            # interpreted as the wideness of an image.
+            success, examplePhoto = Manager.snap(self.cameraName) # More reliable way of testing dimensions than using attributes
+            # Cameras are annoyingly non-standardised.
+            examplePhoto = cvtColor(examplePhoto, COLOR_BGR2RGB)
+            examplePhoto = Image.fromarray(examplePhoto) # Convert to PIL format
+            camWidth = examplePhoto.width
+            camHeight = examplePhoto.height
+            camAspectRatio = camWidth / camHeight
+            dimAspectRatio = self.dimensions[0] / self.dimensions[1]
+            if camAspectRatio > dimAspectRatio:
+                # Media is wider than the dimensions, proportionally.
+                width = self.dimensions[0] # The camera image will be the width of the dimensions.
+                # Media width / Dimensions width = Media height / Dimensions  height. So output height = Media height * (Dimensions width /  Media width)
+                height = camHeight * (self.dimensions[0] / camWidth)
+            else:
+                # The opposite of the previous part
+                height = self.dimensions[1]
+                width = camWidth * (self.dimensions[1] / camHeight)
+            self.resizeDims = (int(width), int(height))
+            coordinate = (
+                (self.blankImage.width - self.resizeDims[0]) // 2,
+                (self.blankImage.height - self.resizeDims[1]) // 2
+            ) # Halfway between (0, 0) and the difference between the dimensions 
+            # results in a centred placement. Also rounded to be an integer.
+            self.resizeCoordinate = coordinate
+        except:
+            pass
+
     def message(self, id, data):
+        print(f"CAMERA - id: {id}, data: {data}")
         match id: # Decide what to do with the message based on its identifier
             case "variableUpdate":
                 if data == "Camera Name":
                     Manager.close(self.cameraName)
                     self.cameraName = self.variables["Camera Name"].value
                     Manager.open(self.cameraName)
+                    self.dimensionConfig()
 
             case "dimensions":
                 self.dimensions = data
                 self.blankImage = Image.new("RGBA", self.dimensions, (0, 0, 0, 0))
-                # First we compare the aspect ratios of the media file and the 
-                # requested dimensions. Aspect ratio is width / height, which can be 
-                # interpreted as the wideness of an image.
-                success, examplePhoto = Manager.snap(self.cameraName) # More reliable way of testing dimensions than using attributes
-                # Cameras are annoyingly non-standardised.
-                examplePhoto = cvtColor(examplePhoto, COLOR_BGR2RGB)
-                examplePhoto = Image.fromarray(examplePhoto) # Convert to PIL format
-                camWidth = examplePhoto.width
-                camHeight = examplePhoto.height
-                camAspectRatio = camWidth / camHeight
-                dimAspectRatio = self.dimensions[0] / self.dimensions[1]
-                if camAspectRatio > dimAspectRatio:
-                    # Media is wider than the dimensions, proportionally.
-                    width = self.dimensions[0] # The camera image will be the width of the dimensions.
-                    # Media width / Dimensions width = Media height / Dimensions  height. So output height = Media height * (Dimensions width /  Media width)
-                    height = camHeight * (self.dimensions[0] / camWidth)
-                else:
-                    # The opposite of the previous part
-                    height = self.dimensions[1]
-                    width = camWidth * (self.dimensions[1] / camHeight)
-                self.resizeDims = (int(width), int(height))
-                coordinate = (
-                    (self.blankImage.width - self.resizeDims[0]) // 2,
-                    (self.blankImage.height - self.resizeDims[1]) // 2
-                ) # Halfway between (0, 0) and the difference between the dimensions 
-                # results in a centred placement. Also rounded to be an integer.
-                self.resizeCoordinate = coordinate
+                self.dimensionConfig()
+
             case "slideEnd":
-                self.cameraObject.release()
+                Manager.close(self.cameraName)
